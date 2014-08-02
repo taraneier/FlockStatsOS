@@ -16,4 +16,4 @@ admin.site.register(Flock)
 
 
 class EggAdmin(admin.ModelAdmin):
-    list_display = '-egg_id'
+    list_display = ('-egg_id')
