@@ -13,3 +13,7 @@ admin.site.register(Bird)
 admin.site.register(Breed)
 admin.site.register(Site)
 admin.site.register(Flock)
+
+
+class EggAdmin(admin.ModelAdmin):
+    list_display = '-egg_id'
