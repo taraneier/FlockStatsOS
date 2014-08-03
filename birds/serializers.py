@@ -1,4 +1,4 @@
-from models import Bird, Breed, Egg, Flock
+from models import Bird, Breed, Flock
 from rest_framework import serializers
 
 class FlockSerializer(serializers.HyperlinkedModelSerializer):

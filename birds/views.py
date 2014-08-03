@@ -1,9 +1,8 @@
 from models import Bird, Breed, Flock
 from rest_framework import viewsets
-from django.db.models import Count
 from birds.serializers import BirdSerializer, BreedSerializer, FlockSerializer
 
-class FlockViewSet(viewsets.ModelViewSet):
+class FlockViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint that allows birds to be viewed or edited.
     """
@@ -11,7 +10,7 @@ class FlockViewSet(viewsets.ModelViewSet):
     serializer_class = FlockSerializer
 
 
-class BirdViewSet(viewsets.ModelViewSet):
+class BirdViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint that allows birds to be viewed or edited.
     """
@@ -19,7 +18,7 @@ class BirdViewSet(viewsets.ModelViewSet):
     serializer_class = BirdSerializer
 
 
-class BreedViewSet(viewsets.ModelViewSet):
+class BreedViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint that allows breeds to be viewed or edited.
     """

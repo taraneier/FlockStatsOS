@@ -7,6 +7,9 @@ from birds.models import Site
 from birds.models import Flock
 
 
+class EggAdmin(admin.ModelAdmin):
+    list_display = ('-egg_id')
+
 # Register your models here.
 admin.site.register(Egg)
 admin.site.register(Bird)
@@ -15,5 +18,3 @@ admin.site.register(Site)
 admin.site.register(Flock)
 
 
-class EggAdmin(admin.ModelAdmin):
-    list_display = ('-egg_id')
