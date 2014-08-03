@@ -144,6 +144,7 @@ class Egg(models.Model):
     class Meta:
         managed = False
         db_table = 'egg'
+        ordering = ['-egg_id']
 
 
 

@@ -7,8 +7,8 @@ from birds.models import Site
 from birds.models import Flock
 
 
-class EggAdmin(admin.ModelAdmin):
-    ordering = ['-egg_id']
+# class EggAdmin(admin.ModelAdmin):
+    # ordering = ['-egg_id']
 
 # Register your models here.
 admin.site.register(Egg)
