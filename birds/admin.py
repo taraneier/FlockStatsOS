@@ -8,9 +8,7 @@ from birds.models import Flock
 
 
 class EggAdmin(admin.ModelAdmin):
-    def queryset(self, request):
-        qs = super(EggAdmin, self).queryset(request).order_by('-egg_id')
-        return qs
+    ordering = ['-egg_id']
 
 # Register your models here.
 admin.site.register(Egg)
