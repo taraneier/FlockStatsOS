@@ -8,7 +8,7 @@ setup(
     author_email='tara@neier.me',
     url='http://www.python.org/sigs/distutils-sig/',
     install_requires=[
-        'Django>=1.6',
+        'Django>=1.5',
         'Django<1.7',
         'django-rest-swagger',
         'djangorestframework',
