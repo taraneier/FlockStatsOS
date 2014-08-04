@@ -1,4 +1,5 @@
 from setuptools import setup
+dependency_links = ['https://www.djangoproject.com/download/1.5.1/tarball/#egg=Django-1.5.1',],
 
 setup(
     name='flockapi',
