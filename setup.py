@@ -1,4 +1,8 @@
 from setuptools import setup
+
+# Put here required packages
+packages = ['Django<=1.5',]
+
 dependency_links = ['https://www.djangoproject.com/download/1.5.1/tarball/#egg=Django-1.5.1',],
 
 setup(
