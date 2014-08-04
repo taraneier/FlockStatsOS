@@ -85,6 +85,10 @@ ROOT_URLCONF = 'flockapi.urls'
 WSGI_APPLICATION = 'flockapi.wsgi.application'
 
 
+TEMPLATE_LOADERS = (
+    'django.template.loaders.eggs.Loader',
+)
+
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
