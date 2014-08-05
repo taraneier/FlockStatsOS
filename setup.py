@@ -11,7 +11,7 @@ setup(
         'Django>=1.6',
         'Django<1.7',
         'djangorestframework',
-        'django-rest-swagger',
+        'django_rest_swagger',
         'pytz'
     ],
 )
