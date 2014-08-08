@@ -23,7 +23,7 @@ class BreedSerializer(serializers.HyperlinkedModelSerializer):
 class BirdSerializer(serializers.HyperlinkedModelSerializer):
     age = serializers.Field()
     breed = serializers.HyperlinkedRelatedField
-    # egg_count = serializers.Field()
+    egg_count = serializers.Field()
     avg_weight = serializers.Field()
     days_laying = serializers.Field()
     eggs_per_day = serializers.Field()
