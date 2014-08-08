@@ -1,8 +1,15 @@
 from __future__ import division
 from django.db import models
 from django.db.models import Avg
-
+from django.core.files import File
+from PIL import Image as PImage
+from django.contrib import admin
 from django.db import connection
+import os
+# from settings import MEDIA_ROOT
+from django.conf import settings
+from tempfile import *
+
 
 
 # Create your models here.
@@ -146,16 +153,57 @@ class Egg(models.Model):
         db_table = 'egg'
         ordering = ['-egg_id']
 
+class Image(models.Model):
+    image_id = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=255, blank=True, null=True)
+    image = models.FileField(upload_to="images/")
+    width = models.IntegerField(blank=True, null=True)
+    height = models.IntegerField(blank=True, null=True)
+    created = models.DateTimeField(auto_now_add=True)
+    birds = models.ManyToManyField(Bird, blank=True)
+    eggs  = models.ManyToManyField(Egg, blank=True)
+    thumbnail2 = models.ImageField(upload_to="images/", blank=True, null=True)
+    thumbnail = models.ImageField(upload_to="images/", blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        """Save image dimensions."""
+        super(Image, self).save(*args, **kwargs)
+        im = PImage.open(os.path.join(settings.MEDIA_ROOT, self.image.name))
+        self.width, self.height = im.size
+        super(Image, self).save(*args, ** kwargs)
+
+        # large thumbnail
+        fn, ext = os.path.splitext(self.image.name)
+        im.thumbnail((128,128), PImage.ANTIALIAS)
+        thumb_fn = fn + "-thumb2" + ext
+        tf2 = NamedTemporaryFile()
+        im.save(tf2.name, "JPEG")
+        self.thumbnail2.save(thumb_fn, File(open(tf2.name)), save=False)
+        tf2.close()
+
+        # small thumbnail
+        im.thumbnail((40,40), PImage.ANTIALIAS)
+        thumb_fn = fn + "-thumb" + ext
+        tf = NamedTemporaryFile()
+        im.save(tf.name, "JPEG")
+        self.thumbnail.save(thumb_fn, File(open(tf.name)), save=False)
+        tf.close()
+
+        super(Image, self).save(*args, ** kwargs)
 
 
-# flock
-# select b.name as Bird, count(1) as Eggs from egg e join bird b on e.bird_id = b.bird_id  group by Bird  order by Eggs desc;
-# select l.name as Site, count(1) as Eggs from egg e join site l  on e.site_id = l.site_id  group by Site  order by Eggs desc;
-# select b.name as Bird, avg(weight) as Avg from egg e join bird b on e.bird_id = b.bird_id  group by Bird  order by Avg desc;
-# select date(finish) as date, count(1) as eggs from egg group by date(finish) order by finish;
-#
-# bird
-# select count(egg_id) from egg where bird_id=2;
-# select avg(weight) from egg where bird_id=2;
-# select finish as "Start", timestampdiff(day,finish,now()) as "Days Laying" from egg where bird_id=2 order by finish limit 1;
-# select l.name as Site, count(1) as Eggs from egg e join site l  on e.site_id = l.site_id  where bird_id=2 group by Site  order by Eggs desc limit 1;
+    def thumbnail_link(self):
+        return """<a href="/media/%s"><img border="0" alt="" src="/media/%s" height="40" /></a>""" % ((self.image.name, self.image.name))
+
+    thumbnail_link.allow_tags=True
+
+    def size(self):
+        return "%s x %s" % (self.width, self.height)
+
+    def __unicode__(self):
+        return self.image.name
+
+    # class Meta:
+        # managed = False
+        # db_table = 'image'
+
