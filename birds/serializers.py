@@ -30,4 +30,4 @@ class BirdSerializer(serializers.HyperlinkedModelSerializer):
     favorite_site = serializers.Field()
     class Meta:
         model = Bird
-        fields = ('bird_id','name', 'breed', 'hatched','age',  'avg_weight', 'days_laying', 'eggs_per_day', 'favorite_site')
+        fields = ('bird_id','name', 'breed', 'hatched','age', 'egg_count', 'avg_weight', 'days_laying', 'eggs_per_day', 'favorite_site')
