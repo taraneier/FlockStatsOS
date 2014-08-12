@@ -7,11 +7,14 @@ from birds.models import Site
 from birds.models import Flock
 
 
-# class EggAdmin(admin.ModelAdmin):
+class EggAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'site','weight')
+    list_editable = ('site','weight')
+    list_filter = ('bird','finish')
     # ordering = ['-egg_id']
 
 # Register your models here.
-admin.site.register(Egg)
+admin.site.register(Egg, EggAdmin)
 admin.site.register(Bird)
 admin.site.register(Breed)
 admin.site.register(Site)
