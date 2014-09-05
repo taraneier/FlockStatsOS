@@ -149,6 +149,30 @@ class Egg(models.Model):
 
 
 # flock
+
+# select
+#     date(`finish`) as `Date`,
+#     count(1) as `Total`,
+#     sum(if(`e`.`bird_id` = 8, `weight`, 0)) as `Faith`,
+#     sum(if(`e`.`bird_id` = 1, `weight`, 0)) as `Della`,
+#     sum(if(`e`.`bird_id` = 2, `weight`, 0)) as `Ozzie`,
+#     sum(if(`e`.`bird_id` = 11, `weight`, 0)) as `Ivy`,
+#     sum(if(`e`.`bird_id` = 7, `weight`, 0)) as `Buffy`,
+#     sum(if(`e`.`bird_id` = 4, `weight`, 0)) as `Barbara`,
+#     sum(if(`e`.`bird_id` = 9, `weight`, 0)) as `Georgia`,
+#     sum(if(`e`.`bird_id` = 12, `weight`, 0)) as `Winona`,
+#     sum(if(`e`.`bird_id` = 10, `weight`, 0)) as `Mabel`,
+#     sum(if(`e`.`bird_id` = 3, `weight`, 0)) as `Rosie`,
+#     sum(if(`e`.`bird_id` = 5, `weight`, 0)) as `Sammy`,
+#     sum(if(`e`.`bird_id` = 6, `weight`, 0)) as `Cappie`
+#
+# from
+#     `egg` `e`
+# group by `Date`
+# order by `Date` desc
+# ;
+
+
 # select b.name as Bird, count(1) as Eggs from egg e join bird b on e.bird_id = b.bird_id  group by Bird  order by Eggs desc;
 # select l.name as Site, count(1) as Eggs from egg e join site l  on e.site_id = l.site_id  group by Site  order by Eggs desc;
 # select b.name as Bird, avg(weight) as Avg from egg e join bird b on e.bird_id = b.bird_id  group by Bird  order by Avg desc;

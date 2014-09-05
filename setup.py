@@ -12,6 +12,7 @@ setup(
         'Django<1.7',
         'djangorestframework',
         'django_rest_swagger',
-        'pytz'
+        'pytz',
+        'simplejson'
     ],
 )
