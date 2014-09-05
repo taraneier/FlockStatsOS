@@ -25,14 +25,12 @@ def main():
         yesterday = pytz.utc.localize(datetime.today() - timedelta(1))
         date = yesterday.strftime('%Y%m%d')
 
-    print settings.DATABASES['default']['name']
-
     db = MySQLdb.connect(host=os.environ['OPENSHIFT_MYSQL_DB_HOST'],
                          port=os.environ['OPENSHIFT_MYSQL_DB_PORT'],
                          user=os.environ['OPENSHIFT_MYSQL_DB_USERNAME'],
                          passwd=os.environ['OPENSHIFT_MYSQL_DB_PASSWORD'],
                          db="weather")
-    #process_weather(date, db)
+    process_weather(date, db)
 
 # def main():
 #     daysback = 170;
