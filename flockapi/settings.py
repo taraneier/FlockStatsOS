@@ -103,6 +103,14 @@ if ON_OPENSHIFT:
             'PASSWORD': os.environ['OPENSHIFT_MYSQL_DB_PASSWORD'],                  # Not used with sqlite3.
             'HOST': os.environ['OPENSHIFT_MYSQL_DB_HOST'],                      # Set to empty string for localhost. Not used with sqlite3.
             'PORT': os.environ['OPENSHIFT_MYSQL_DB_PORT'],                      # Set to empty string for default. Not used with sqlite3.
+        },
+        'weather': {
+            'ENGINE': 'django.db.backends.mysql',  # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+            'NAME': 'weather', # os.path.join(os.environ['OPENSHIFT_DATA_DIR'], 'sqlite3.db'),  # Or path to database file if using sqlite3.
+            'USER': os.environ['OPENSHIFT_MYSQL_DB_USERNAME'],                      # Not used with sqlite3.
+            'PASSWORD': os.environ['OPENSHIFT_MYSQL_DB_PASSWORD'],                  # Not used with sqlite3.
+            'HOST': os.environ['OPENSHIFT_MYSQL_DB_HOST'],                      # Set to empty string for localhost. Not used with sqlite3.
+            'PORT': os.environ['OPENSHIFT_MYSQL_DB_PORT'],                      # Set to empty string for default. Not used with sqlite3.
         }
     }
 else:
@@ -110,6 +118,15 @@ else:
         'default': {
             'ENGINE': 'django.db.backends.mysql', #'django.db.backends.', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
             'NAME': 'flock',                      # Or path to database file if using sqlite3.
+            # The following settings are not used with sqlite3:
+            'USER': os.environ['LOCAL_MYSQL_DB_USER'],
+            'PASSWORD': os.environ['LOCAL_MYSQL_DB_PASSWORD'],
+            'HOST': '127.0.0.1',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+            'PORT': '8889',                      # Set to empty string for default.
+        },
+        'weather': {
+            'ENGINE': 'django.db.backends.mysql', #'django.db.backends.', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+            'NAME': 'weather',                      # Or path to database file if using sqlite3.
             # The following settings are not used with sqlite3:
             'USER': os.environ['LOCAL_MYSQL_DB_USER'],
             'PASSWORD': os.environ['LOCAL_MYSQL_DB_PASSWORD'],
