@@ -1,9 +1,10 @@
 import pytz
 from datetime import datetime, timedelta
+import os
 
 __author__ = 'tneier'
 
 date = pytz.utc.localize(datetime.today()).strftime('%Y%m%d--%h%m%s')
-f = open('${OPENSHIFT_DATA_DIR}/crontest.log', 'a')
+f = open(os.environ['OPENSHIFT_DATA_DIR'] + '/crontest.log', 'a')
 f.write(date)
 f.close()
