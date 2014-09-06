@@ -31,6 +31,7 @@ def main():
                          passwd=os.environ['OPENSHIFT_MYSQL_DB_PASSWORD'],
                          db="weather")
     process_weather(date, db)
+    db.close()
 
 # def main():
 #     daysback = 170;
@@ -46,6 +47,7 @@ def main():
 def process_weather(date, db):
     parsed_json = get_weather(date)
     save_weather_database(parsed_json, db)
+    print date
 
 
 def get_weather( datestr ):
