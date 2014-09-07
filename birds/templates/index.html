@@ -1,20 +1,11 @@
 <!DOCTYPE html>
-<html ng-app>
+<html ng-app="FlockApp">
 <head lang="en">
     <meta charset="UTF-8">
     <title>FlockStats</title>
 </head>
-<body ng-init="items=['toad',0,1,2,3,4,5,6,7,8,9]">
-index in birds<br/>
-
-{#<input type="text" name="search" ng-model="search" placeholder="search..." />#}
-
-  <div ng-repeat="item in items">
-    item: {{ item }}
-  </div>
-bottom {{ item[0] }}
-{% load staticfiles %}
+<body>
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.js"></script>
-
+<script type="text/javascript" src="/static/ng/app.js"></script>
 </body>
 </html>
