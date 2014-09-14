@@ -2,6 +2,9 @@ from django.conf.urls import patterns, include, url
 from rest_framework import routers
 from birds import views
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
+
 admin.autodiscover()
 
 router = routers.DefaultRouter()
@@ -15,6 +18,9 @@ urlpatterns = patterns('',
     # url(r'^$', 'flockapi.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
+    url(r'^index.html', 'birds.views.index', name='index'),
+    url(r'^dashboard.html', 'birds.views.dashboard', name='dashboard'),
+    url(r'^stats/','birds.views.overview', name='overview'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
