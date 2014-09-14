@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>FlockStats</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<style>
+
+#chart svg {
+  height: 400px;
+    width: 100%;
+}
+
+</style>
+</head>
+
+<body>
+
+
+
+<div id="chart">
+  <svg></svg>
+</div>
+<script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript" src="https://raw.github.com/novus/nvd3/master/nv.d3.min.js"></script>
+<script type="text/javascript">
+d3.json('/stats/', function(data) {
+nv.addGraph(function() {
+    var chart = nv.models.multiBarChart()
+      .transitionDuration(350)
+      .reduceXTicks(true)   //If 'false', every single x-axis tick label will be rendered.
+      .rotateLabels(0)      //Angle to rotate x-axis labels.
+      .showControls(true)   //Allow user to switch between 'Grouped' and 'Stacked' mode.
+      .groupSpacing(0.1)    //Distance between each group of bars.
+    ;
+
+    chart.xAxis
+        .tickFormat(function(d) { return d3.time.format('%x')(new Date(d)) });
+
+    chart.yAxis
+        .tickFormat(d3.format(',1f'));
+
+    d3.select('#chart svg')
+        .datum(data)
+        .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+});
+
+});
+
+
+</script>
+</body>
+</html>
