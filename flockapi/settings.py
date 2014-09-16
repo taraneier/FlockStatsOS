@@ -69,6 +69,7 @@ INSTALLED_APPS = (
     'birds',
     'rest_framework',
     'rest_framework_swagger',
+    'weather'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -158,3 +159,7 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 
 )
+
+
+DATABASE_ROUTERS = ['weather.router.WeatherRouter']
+
