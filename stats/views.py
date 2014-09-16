@@ -74,8 +74,9 @@ def overview(request):
               "color": "#0000ff",
               "values": avgwt}
 
-    response_data.append(weight)
-    response_data.append(qty)
     response_data.append(avgwgt)
+    # response_data.append(weight)
+    response_data.append(qty)
+
 
     return HttpResponse(json.dumps(response_data), content_type="application/json")

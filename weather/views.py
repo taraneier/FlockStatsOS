@@ -11,7 +11,7 @@ def daily(request):
 
 def dailynum(request, days):
     cursor = connection.cursor()
-    query = "select unix_timestamp(date), cast(meantempi as Signed), cast(maxtempi as signed), cast(mintempi as signed), cast(precipi as signed) from weather.dailysummary limit " + days + ";"
+    query = "select unix_timestamp(date), cast(meantempi as Signed), cast(maxtempi as signed), cast(mintempi as signed), cast(precipi as signed) from weather.dailysummary  order by date desc limit " + days + ";"
     response_data = []
 
     avgval = []
@@ -31,6 +31,7 @@ def dailynum(request, days):
     avgtemp = {"key": "Avg",
                "values": avgval}
     precip = {"key": "Rain",
+              "bar": "true",
               "values": precip}
 
     response_data.append(mintemp)
