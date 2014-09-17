@@ -39,11 +39,18 @@
 
 <body>
 <h1 id="name"></h1>
-
+<h3>Total Eggs: <span id="total"></span></h3>
+<h3>Total Birds:<span id="birds"></span></h3>
+<h3>Days Laying:<span id="days"></span></h3>
+<h3>Eggs/Day:<span id="eggsday"></span></h3>
 <div id="sitespie">
     <svg></svg>
 </div>
 <div id="birdspie">
+    <svg></svg>
+</div>
+
+<div id="sun">
     <svg></svg>
 </div>
 
@@ -55,15 +62,24 @@
     <svg></svg>
 </div>
 
-<div id="sun">
-    <svg></svg>
-</div>
+
 
 <div id="detail">
   <svg></svg>
 </div>
 <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
 <script type="text/javascript" src="https://raw.github.com/novus/nvd3/master/nv.d3.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript">
+    $.getJSON('api/flocks/1', function(data) {
+        $('#name').html(data.name);
+        $('span#total').html(data.egg_count);
+        $('span#birds').html(data.bird_count);
+        $('span#eggsday').html(data.eggs_per_day);
+        $('span#days').html(data.days_laying);
+
+    });
+</script>
 <script type="text/javascript">
 d3.json('/stats/detail', function(data) {
     nv.addGraph(function() {
