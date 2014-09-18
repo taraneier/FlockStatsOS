@@ -65,12 +65,13 @@ def save_weather_database(parsed_json, db):
 def build_daily_insert(daily):
     global today
     global synodic_month
+    moon_phase = daily['moon_phase']['ageOfMoon'] % synodic_month
     query = "INSERT INTO astro VALUES (NULL," + \
             "STR_TO_DATE('" + today + "', '%M %d,%Y')," + \
             daily['sun_phase']['sunrise']['hour'] + ":" + daily['sun_phase']['sunrise']['minutes']+":00," + \
             daily['sun_phase']['sunset']['hour'] + ":" + daily['sun_phase']['sunset']['minutes']+":00," + \
             daily['moon_phase']['percentIlluminated'] + "," + \
-            daily['moon_phase']['ageOfMoon'] % synodic_month + ");"
+            moon_phase + ");"
     return query
 
 
