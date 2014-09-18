@@ -12,10 +12,11 @@ from datetime import datetime, timedelta
 import MySQLdb
 import os
 # import time
-
+today = pytz.utc.localize(datetime.today())
 
 
 def main():
+    global today
     if len(sys.argv) == 2:
         date = (sys.argv[1])
         if len(date) == 8:
@@ -23,7 +24,7 @@ def main():
         else:
             print "you must specify the full date in YEARMODA format"
     else:
-        today = pytz.utc.localize(datetime.today())
+
         date = today.strftime('%Y%m%d')
 
     db = MySQLdb.connect(host=os.environ['OPENSHIFT_MYSQL_DB_HOST'],
@@ -34,16 +35,6 @@ def main():
     process_astro(date, db)
     db.close()
 
-# def main():
-#     daysback = 170;
-#     db = MySQLdb.connect(host="127.0.0.1", port=8889, user=os.environ['LOCAL_MYSQL_DB_USER'], passwd=os.environ['LOCAL_MYSQL_DB_PASSWORD'], db="weather")
-#     while(daysback > 0):
-#         date = pytz.utc.localize(datetime.today() - timedelta(daysback)).strftime('%Y%m%d')
-#         print date
-#         process_weather(date, db)
-#         daysback = daysback - 1
-#         time.sleep(10)
-#     print "done"
 
 def process_astro(date, db):
     parsed_json = get_astro(date)
