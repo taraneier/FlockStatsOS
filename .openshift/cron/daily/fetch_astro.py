@@ -24,9 +24,8 @@ def main():
         else:
             print "you must specify the full date in YEARMODA format"
     else:
-
         date = today.strftime('%Y%m%d')
-
+        
     db = MySQLdb.connect(host=os.environ['OPENSHIFT_MYSQL_DB_HOST'],
                          port=int(os.environ['OPENSHIFT_MYSQL_DB_PORT']),
                          user=os.environ['OPENSHIFT_MYSQL_DB_USERNAME'],
@@ -65,11 +64,11 @@ def save_weather_database(parsed_json, db):
 def build_daily_insert(daily):
     global today
     global synodic_month
-    moon_phase = daily['moon_phase']['ageOfMoon'] % synodic_month
+    moon_phase = str(round(int(daily['moon_phase']['ageOfMoon']) % synodic_month, 2))
     query = "INSERT INTO astro VALUES (NULL," + \
-            "STR_TO_DATE('" + today + "', '%M %d,%Y')," + \
-            daily['sun_phase']['sunrise']['hour'] + ":" + daily['sun_phase']['sunrise']['minutes']+":00," + \
-            daily['sun_phase']['sunset']['hour'] + ":" + daily['sun_phase']['sunset']['minutes']+":00," + \
+            "STR_TO_DATE('" + today.strftime('%Y%m%d') + "', '%Y%m%d')," + \
+            daily['sun_phase']['sunrise']['hour'] + ":" + daily['sun_phase']['sunrise']['minute']+":00," + \
+            daily['sun_phase']['sunset']['hour'] + ":" + daily['sun_phase']['sunset']['minute']+":00," + \
             daily['moon_phase']['percentIlluminated'] + "," + \
             moon_phase + ");"
     return query
