@@ -35,6 +35,11 @@
   height: 400px;
     width: 100%;
 }
+#info h3{
+    float: right;
+    margin-left: 20px;
+}
+
 
 </style>
 
@@ -78,39 +83,11 @@
     </tab>
 </tabset>
 
-<h1 id="name"></h1>
-<h3>Eggs: <span id="total"></span></h3>
-<h3>Birds:<span id="birds"></span></h3>
-<h3>Days:<span id="days"></span></h3>
-<h3>Eggs/Day:<span id="eggsday"></span></h3>
-<div id="sitespie">
-    <svg></svg>
-</div>
-<div id="birdspie">
-    <svg></svg>
-</div>
 
-<div id="sun">
-    <svg></svg>
-</div>
-
-<div id="overview">
-    <svg></svg>
-</div>
-
-<div id="weather">
-    <svg></svg>
-</div>
-
-
-
-<div id="detail">
-  <svg></svg>
-</div>
 <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
 <script type="text/javascript" src="https://raw.github.com/novus/nvd3/master/nv.d3.min.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}ng/ui-bootstrap-tpls-0.11.0.min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}ng/app.js"></script>
 <script type="text/javascript">
