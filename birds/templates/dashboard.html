@@ -39,9 +39,9 @@
 
 <body>
 <h1 id="name"></h1>
-<h3>Total Eggs: <span id="total"></span></h3>
-<h3>Total Birds:<span id="birds"></span></h3>
-<h3>Days Laying:<span id="days"></span></h3>
+<h3>Eggs: <span id="total"></span></h3>
+<h3>Birds:<span id="birds"></span></h3>
+<h3>Days:<span id="days"></span></h3>
 <h3>Eggs/Day:<span id="eggsday"></span></h3>
 <div id="sitespie">
     <svg></svg>
@@ -75,7 +75,7 @@
         $('#name').html(data.name);
         $('span#total').html(data.egg_count);
         $('span#birds').html(data.bird_count);
-        $('span#eggsday').html(data.eggs_per_day);
+        $('span#eggsday').html(data.eggs_per_day.toFixed(2));
         $('span#days').html(data.days_laying);
 
     });
@@ -117,7 +117,8 @@ d3.json('/stats/eggsbysite', function(data) {
                   return d.value
               })
               .showLabels(true);
-
+       chart.tooltipContent(function(key, x, y, e, graph) {
+	        return '<h3>' + key + '</h3><p>' + d3.format(',1f')(x) + '</p>' });
       d3.select("#sitespie svg")
               .datum(data)
               .transition().duration(1200)
@@ -136,7 +137,8 @@ d3.json('/stats/eggsbybird', function(data) {
                   return d.value
               })
               .showLabels(true);
-
+       chart.tooltipContent(function(key, x, y, e, graph) {
+	        return '<h3>' + key + '</h3><p>' + d3.format(',1f')(x) + '</p>' });
       d3.select("#birdspie svg")
               .datum(data)
               .transition().duration(1200)

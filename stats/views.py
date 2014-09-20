@@ -51,7 +51,7 @@ def eggsbybird(request):
 
 def overview(request):
     cursor = connection.cursor()
-    query = "select unix_timestamp(date(finish)) as Date, count(*) as Qty, cast(sum(weight) as SIGNED) as Grams, cast(avg(weight) as SIGNED) as Average from egg where weight > 0 group by Date  order by Date desc limit 180;"
+    query = "select unix_timestamp(date(finish)) as Date, count(*) as Qty, cast(sum(weight) as SIGNED) as Grams, avg(weight) as Average from egg where weight > 0 group by Date  order by Date desc limit 180;"
     response_data = []
 
     qtval = []
@@ -61,7 +61,7 @@ def overview(request):
     for row in cursor.fetchall():
         qtval.append([row[0]*1000, row[1]])
         wtval.append([row[0]*1000, row[2]])
-        avgwt.append([row[0]*1000, row[3]])
+        avgwt.append([row[0]*1000, float(row[3])])
 
     qty = {"key": "Quantity",
            "bar": "true",
