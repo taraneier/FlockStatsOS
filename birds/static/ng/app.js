@@ -14,7 +14,7 @@ var app = angular.module('FlockApp',['ui.bootstrap']);
 app.controller('TabsCtrl', function ($scope) {
 
   $scope.resizeCharts = function(){
-//    $(window).trigger('resize');
+    $(window).trigger('resize');
   }
 
   $scope.alertMe = function() {

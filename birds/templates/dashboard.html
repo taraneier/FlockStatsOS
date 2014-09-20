@@ -7,15 +7,12 @@
 <link rel="stylesheet" href="{{ STATIC_URL }}css/nv.d3.css">
 
 <style>
-<<<<<<< Updated upstream
 
 #detail svg {
   height: 400px;
     width: 100%;
 }
 
-=======
->>>>>>> Stashed changes
 #sitespie svg {
   height: 400px;
     width: 50%;
@@ -28,30 +25,7 @@
     height: 400px;
     width: 100%;
 }
-<<<<<<< Updated upstream
-
-</style>
-</head>
-
-<body>
-<div id="sitespie">
-    <svg></svg>
-</div>
-<div id="birdspie">
-    <svg></svg>
-</div>
-
-<div id="overview">
-    <svg></svg>
-</div>
-
-<div id="detail">
-  <svg></svg>
-</div>
-<script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
-<script type="text/javascript" src="https://raw.github.com/novus/nvd3/master/nv.d3.min.js"></script>
-=======
-#weather svg{
+    #weather svg{
     height: 400px;
     width: 100%;
 }
@@ -69,9 +43,10 @@
         float: right;
         margin-right: 20px;
     }
-    tab{
-        width: 100%;
-    }
+ 
+
+
+
 </style>
 
 </head>
@@ -130,7 +105,7 @@
 
     });
 </script>
->>>>>>> Stashed changes
+
 <script type="text/javascript">
 d3.json('/stats/detail', function(data) {
     nv.addGraph(function() {
