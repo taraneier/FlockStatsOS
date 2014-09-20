@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body ng-app ng-init="items=[0,1,2,3,4,5,6,7,8,9]">
+
+  <input type="text" name="search" ng-model="search" placeholder="search..." />
+
+  <div ng-repeat="item in items | filter:search">
+    {{ item }}
+  </div>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.js"></script>
+</body>
+</html>

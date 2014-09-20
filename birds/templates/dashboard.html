@@ -7,23 +7,28 @@
 <link rel="stylesheet" href="{{ STATIC_URL }}css/nv.d3.css">
 
 <style>
+<<<<<<< Updated upstream
 
 #detail svg {
   height: 400px;
     width: 100%;
 }
 
+=======
+>>>>>>> Stashed changes
 #sitespie svg {
   height: 400px;
+    width: 50%;
 }
-
 #birdspie svg {
   height: 400px;
+    width: 50%;
 }
 #overview svg{
     height: 400px;
     width: 100%;
 }
+<<<<<<< Updated upstream
 
 </style>
 </head>
@@ -45,6 +50,87 @@
 </div>
 <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
 <script type="text/javascript" src="https://raw.github.com/novus/nvd3/master/nv.d3.min.js"></script>
+=======
+#weather svg{
+    height: 400px;
+    width: 100%;
+}
+#sun svg{
+  width: 100%;
+}
+#detail svg {
+  height: 400px;
+  width: 100%;
+}
+.big{
+    width: 100%;
+}
+    #info h3{
+        float: right;
+        margin-right: 20px;
+    }
+    tab{
+        width: 100%;
+    }
+</style>
+
+</head>
+
+<body ng-app="FlockApp">
+<div ng-controller="TabsCtrl">
+<tabset>
+    <tab heading="Overview">
+        <div id="info">
+            <h3>Eggs/Day:<span id="eggsday"></span></h3>
+            <h3>Days:<span id="days"></span></h3>
+            <h3>Birds:<span id="birds"></span></h3>
+            <h3>Eggs: <span id="total"></span></h3>
+            <h1 id="name"></h1>
+        </div>
+        <div id="sitespie">
+            <svg></svg>
+        </div>
+        <div id="birdspie">
+            <svg></svg>
+        </div>
+    </tab>
+    <tab heading="Production/Environment" select="resizeCharts()">
+        <div id="sun">
+            <svg></svg>
+        </div>
+
+        <div id="overview">
+            <svg></svg>
+        </div>
+
+        <div id="weather">
+            <svg></svg>
+        </div>
+    </tab>
+    <tab heading="Details" select="resizeCharts()">
+        <div id="detail">
+          <svg></svg>
+        </div>
+    </tab>
+</tabset>
+</div>
+<script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript" src="https://raw.github.com/novus/nvd3/master/nv.d3.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}ng/ui-bootstrap-tpls-0.11.0.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}ng/app.js"></script>
+<script type="text/javascript">
+    $.getJSON('api/flocks/1', function(data) {
+        $('#name').html(data.name);
+        $('span#total').html(data.egg_count);
+        $('span#birds').html(data.bird_count);
+        $('span#eggsday').html(data.eggs_per_day.toFixed(2));
+        $('span#days').html(data.days_laying);
+
+    });
+</script>
+>>>>>>> Stashed changes
 <script type="text/javascript">
 d3.json('/stats/detail', function(data) {
     nv.addGraph(function() {
@@ -82,7 +168,8 @@ d3.json('/stats/eggsbysite', function(data) {
                   return d.value
               })
               .showLabels(true);
-
+      chart.tooltipContent(function(key, x, y, e, graph) {
+        return '<h3>' + key + '</h3><p>' + d3.format(',1f')(x) + '</p>' });
       d3.select("#sitespie svg")
               .datum(data)
               .transition().duration(1200)
@@ -101,7 +188,8 @@ d3.json('/stats/eggsbybird', function(data) {
                   return d.value
               })
               .showLabels(true);
-
+      chart.tooltipContent(function(key, x, y, e, graph) {
+        return '<h3>' + key + '</h3><p>' + d3.format(',1f')(x) + '</p>' });
       d3.select("#birdspie svg")
               .datum(data)
               .transition().duration(1200)
@@ -137,9 +225,9 @@ d3.json('/stats/overview', function(bdata) {
                 .tickFormat(d3.format(',f'));
 
         chart.y2Axis
-                .axisLabel('Total Gms')
+                .axisLabel('Avg Gms')
                 .tickFormat(function (d) {
-                    return  d3.format(',f')(d)
+                    return  d3.format(',.02f')(d)
                 });
 
         chart.bars.forceY([0]);
