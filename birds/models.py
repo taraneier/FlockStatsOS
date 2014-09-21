@@ -32,7 +32,7 @@ class Flock(models.Model):
     name = models.CharField(max_length=45, blank=True)
     @property
     def birds(self):
-        return Bird.objects.filter(flock = self.flock_id).order_by('name')
+        return Bird.objects.filter(flock = self.flock_id).exclude(active = 0).order_by('name')
     @property
     def eggs(self):
         return Egg.objects.filter(bird__flock = self.flock_id).order_by('finish')
@@ -74,15 +74,23 @@ class Flock(models.Model):
         managed = False
         db_table = 'flock'
 
+
 class Bird(models.Model):
     bird_id = models.AutoField(primary_key=True)
     flock = models.ForeignKey(Flock)
     name = models.CharField(max_length=45, blank=True)
     breed = models.ForeignKey(Breed)
     hatched = models.DateTimeField(blank=True, null=True)
+    death = models.DateTimeField(blank=True, null=True)
+    active = models.BooleanField(default=1)
+
+    def is_active(self):
+        return bool(self.active)
+
     @property
     def eggs(self):
         return  Egg.objects.filter(bird = self.bird_id).order_by('finish')
+
     @property
     def age(self):
         import datetime
@@ -91,12 +99,15 @@ class Bird(models.Model):
         weeks = int(days_old/7)
         days = days_old%7
         return `weeks` + " Weeks and " + `days` + " days old"
+
     @property
     def egg_count(self):
         return self.eggs.count()
+
     @property
     def avg_weight(self):
         return self.eggs.aggregate(Avg('weight')).get('weight__avg')
+
     @property
     def days_laying(self):
         import datetime
@@ -106,11 +117,13 @@ class Bird(models.Model):
             return days_laying
         else:
             return 0
+
     def eggs_per_day(self):
         if(self.egg_count > 0):
             return "{:.0}".format(self.egg_count / self.days_laying)
         else:
             return 0;
+
     def favorite_site(self):
         cursor = connection.cursor()
         query = "select l.name as Site, count(1) as Eggs from egg e join site l  on e.site_id = l.site_id  where bird_id=%s group by Site  order by Eggs desc limit 1"

@@ -11,7 +11,7 @@ def daily(request):
 
 def dailynum(request, days):
     cursor = connection.cursor()
-    query = "select unix_timestamp(date), cast(meantempi as Signed), cast(maxtempi as signed), cast(mintempi as signed), cast(precipi as signed) from weather.dailysummary  order by date desc limit " + days + ";"
+    query = "select unix_timestamp(date(date)), cast(meantempi as Signed), cast(maxtempi as signed), cast(mintempi as signed), cast(precipi as signed) from weather.dailysummary  order by date desc limit " + days + ";"
     response_data = []
 
     avgval = []
@@ -47,7 +47,7 @@ def sun(request):
 
 def sundays(request, days):
     cursor = connection.cursor()
-    query = "select unix_timestamp(date), sunrise, sunset from weather.astro order by date desc limit " + days + ";"
+    query = "select unix_timestamp(date(date)), sunrise, sunset from weather.astro order by date desc limit " + days + ";"
     response_data = []
 
     sunrise = []

@@ -8,7 +8,7 @@ from django.db import connection
 
 def detail(request):
     cursor = connection.cursor()
-    bird_query = "select bird_id, name from bird"
+    bird_query = "select bird_id, name from bird where active > 0"
     response_data = []
     cursor.execute(bird_query)
     for bird in cursor.fetchall():
