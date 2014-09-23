@@ -153,7 +153,7 @@ d3.json('/stats/overview', function(data) {
         var chart = nv.models.linePlusBarChart()
                         .margin({top: 30, right: 60, bottom: 50, left: 70})
                         .x(function (d, i) {
-                            return d[0]
+                            return Date.parse(d[0])
                         })
                         .y(function (d) {
                             return d[1]
@@ -197,7 +197,7 @@ d3.json('/weather/daily/82', function(data) {
    nv.addGraph(function() {
     var chart = nv.models.linePlusBarChart()
       .margin({top: 30, right: 60, bottom: 50, left: 70})
-      .x(function(d,i) { return d[0] })
+      .x(function(d,i) { return Date.parse(d[0]) })
       .y(function(d) { return d[1] })
       .color(d3.scale.category10().range())
       ;
@@ -234,7 +234,7 @@ d3.json('/weather/sun/82', function(data) {
    nv.addGraph(function() {
     var chart = nv.models.linePlusBarChart()
       .margin({top: 30, right: 60, bottom: 50, left: 70})
-      .x(function(d,i) { return d[0] })
+      .x(function(d,i) { return Date.parse(d[0]) })
       .y(function(d) { return d[1] } )
       .color(d3.scale.category10().range())
       ;

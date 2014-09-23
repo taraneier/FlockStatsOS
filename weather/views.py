@@ -11,7 +11,7 @@ def daily(request):
 
 def dailynum(request, days):
     cursor = connection.cursor()
-    query = "select unix_timestamp(date(date)), cast(meantempi as Signed), cast(maxtempi as signed), cast(mintempi as signed), cast(precipi as signed) from weather.dailysummary  order by date desc limit " + days + ";"
+    query = "select date_format(date(date), '%M %d, %Y'), cast(meantempi as Signed), cast(maxtempi as signed), cast(mintempi as signed), cast(precipi as signed) from weather.dailysummary  order by date desc limit " + days + ";"
     response_data = []
 
     avgval = []
@@ -20,10 +20,10 @@ def dailynum(request, days):
     precip = []
     cursor.execute(query)
     for row in cursor.fetchall():
-        avgval.append([row[0]*1000, row[1]])
-        maxval.append([row[0]*1000, row[2]])
-        minval.append([row[0]*1000, row[3]])
-        precip.append([row[0]*1000, row[4]])
+        avgval.append([row[0], row[1]])
+        maxval.append([row[0], row[2]])
+        minval.append([row[0], row[3]])
+        precip.append([row[0], row[4]])
     mintemp = {"key": "Low",
                "values": minval}
     maxtemp = {"key": "High",
@@ -47,7 +47,7 @@ def sun(request):
 
 def sundays(request, days):
     cursor = connection.cursor()
-    query = "select unix_timestamp(date(date)), sunrise, sunset from weather.astro order by date desc limit " + days + ";"
+    query = "select date_format(date(date), '%M %d, %Y'), sunrise, sunset, unix_timestamp(date(date))  from weather.astro order by date desc limit " + days + ";"
     response_data = []
 
     sunrise = []
@@ -55,15 +55,15 @@ def sundays(request, days):
     sunshine = []
     cursor.execute(query)
     for row in cursor.fetchall():
-        rowdate = datetime.date.fromtimestamp(row[0])
+        rowdate = datetime.date.fromtimestamp(row[3])
         rise = datetime.datetime(year=rowdate.year, month=rowdate.month, day=rowdate.day, hour=row[1].hour, minute=row[1].minute)
 
         set = datetime.datetime(year=rowdate.year, month=rowdate.month, day=rowdate.day,  hour=row[2].hour, minute=row[2].minute)
         diff = set - rise
         hours = round(diff.seconds / 60.00 / 60.00, 2);
-        sunshine.append([row[0]*1000, hours])
-        sunrise.append(row[1].strftime('%H:%M'))
-        sunset.append(row[2].strftime('%H:%M'))
+        sunshine.append([row[0], hours])
+        # sunrise.append(row[1].strftime('%H:%M'))
+        # sunset.append(row[2].strftime('%H:%M'))
     sun = {"key": "Hours of Daylight",
                "values": sunshine}
     rises = {"key": "Sunrise",

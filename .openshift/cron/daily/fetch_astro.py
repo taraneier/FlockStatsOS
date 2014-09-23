@@ -38,7 +38,7 @@ def main():
 def process_astro(date, db):
     parsed_json = get_astro(date)
     save_weather_database(parsed_json, db)
-    print date
+    print date + "astro"
 
 
 def get_astro( datestr ):
@@ -71,6 +71,7 @@ def build_daily_insert(daily):
             daily['sun_phase']['sunset']['hour'] + ":" + daily['sun_phase']['sunset']['minute']+":00," + \
             daily['moon_phase']['percentIlluminated'] + "," + \
             moon_phase + ");"
+    print query
     return query
 
 
