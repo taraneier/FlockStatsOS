@@ -8,10 +8,12 @@ from birds.models import Flock
 
 
 class EggAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'site','weight')
-    list_editable = ('site','weight')
-    list_filter = ('bird','finish')
-    # ordering = ['-egg_id']
+    list_display = ('__str__', 'site', 'weight')
+    list_editable = ('site', 'weight')
+    list_filter = ('bird', 'finish')
+
+    class Media:
+        js = ('js/admin.js',)
 
 # Register your models here.
 admin.site.register(Egg, EggAdmin)
