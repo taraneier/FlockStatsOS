@@ -66,9 +66,9 @@ def build_daily_insert(daily):
     global synodic_month
     moon_phase = str(round(int(daily['moon_phase']['ageOfMoon']) % synodic_month, 2))
     query = "INSERT INTO astro VALUES (NULL," + \
-            "STR_TO_DATE('" + today.strftime('%Y%m%d') + "', '%Y%m%d')," + \
-            daily['sun_phase']['sunrise']['hour'] + ":" + daily['sun_phase']['sunrise']['minute']+":00," + \
-            daily['sun_phase']['sunset']['hour'] + ":" + daily['sun_phase']['sunset']['minute']+":00," + \
+            "STR_TO_DATE('" + today.strftime('%Y%m%d') + "', '%Y%m%d'), '" + \
+            daily['sun_phase']['sunrise']['hour'] + ":" + daily['sun_phase']['sunrise']['minute']+":00' , '" + \
+            daily['sun_phase']['sunset']['hour'] + ":" + daily['sun_phase']['sunset']['minute']+":00'," + \
             daily['moon_phase']['percentIlluminated'] + "," + \
             moon_phase + ");"
     print query
