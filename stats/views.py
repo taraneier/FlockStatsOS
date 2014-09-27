@@ -55,7 +55,7 @@ def eggsbybird(request):
 
 def overview(request):
     cursor = connection.cursor()
-    query = "select date_format(date(finish), '%M %d, %Y') as Date, count(*) as Qty, cast(sum(weight) as SIGNED) as Grams, avg(weight) as Average, date(finish) as oDate from egg where weight > 0 group by Date  order by oDate desc limit 180;"
+    query = "select date_format(date(finish), '%M %d, %Y') as Date, count(*) as Qty, cast(sum(weight) as SIGNED) as Grams, avg(weight) as Average, date(finish) as oDate from egg where weight > 0 group by Date  order by oDate desc limit 90;"
     response_data = []
 
     qtval = []
