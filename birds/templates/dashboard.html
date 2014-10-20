@@ -160,7 +160,8 @@ d3.json('/stats/overview', function(data) {
                         })
                         .color(d3.scale.category10().range())
                 ;
-
+            chart.tooltipContent(function(key, x, y, e, graph) {
+	        return '<h3>' + key + '</h3><p>' + d3.format(',.02f')(y) + ' at ' + d3.time.format(x) + '</p>' });
         chart.xAxis
             .axisLabel('Date')
             .tickFormat(function(d) {
@@ -176,7 +177,7 @@ d3.json('/stats/overview', function(data) {
         chart.y2Axis
                 .axisLabel('Total Gms')
                 .tickFormat(function (d) {
-                    return  d3.format(',f')(d)
+                    return  d3.format(',.02f')(d)
                 });
 
         chart.bars.forceY([0]);
