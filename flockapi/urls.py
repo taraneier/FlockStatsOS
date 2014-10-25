@@ -28,3 +28,9 @@ urlpatterns = patterns('',
     url(r'^weather/', include('weather.urls')),
     url(r'^stats/', include('stats.urls')),
 )
+
+if settings.DEBUG:
+    # static files (images, css, javascript, etc.)
+    urlpatterns += patterns('',
+        (r'^media/(?P<path>.*)$', 'django.views.static.serve', {
+        'document_root': settings.MEDIA_ROOT}))

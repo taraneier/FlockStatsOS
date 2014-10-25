@@ -7,3 +7,9 @@
 # Activate VirtualEnv in order to use the correct libraries
 
 echo "--> ACTION HOOK: build <--"
+
+if [ ! -d $OPENSHIFT_DATA_DIR/media ]; then
+mkdir $OPENSHIFT_DATA_DIR/media
+fi
+ln -sf $OPENSHIFT_DATA_DIR/media $OPENSHIFT_REPO_DIR/wsgi/static/media
+# from http://masci.wordpress.com/2012/07/17/serving-django-media-files-in-openshift/

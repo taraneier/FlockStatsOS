@@ -13,6 +13,7 @@ setup(
         'djangorestframework',
         'django_rest_swagger',
         'pytz',
-        'simplejson'
+        'simplejson',
+        'Pillow'
     ],
 )
