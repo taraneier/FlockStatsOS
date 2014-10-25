@@ -5,3 +5,8 @@
 # could be python, php, ruby, etc.
 
 echo "--> ACTION HOOK: pre_build <--"
+
+# For PIL:
+ln -sf /usr/lib64/libz.so $VIRTUAL_ENV/lib/
+ln -sf /usr/lib64/libfreetype.so $VIRTUAL_ENV/lib/
+ln -sf /usr/lib64/libjpeg.so $VIRTUAL_ENV/lib/
