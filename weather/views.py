@@ -47,12 +47,13 @@ def sun(request):
 
 def sundays(request, days):
     cursor = connection.cursor()
-    query = "select date_format(date(date), '%M %d, %Y'), sunrise, sunset, unix_timestamp(date(date))  from weather.astro order by date desc limit " + days + ";"
+    query = "select date_format(date(date), '%M %d, %Y'), sunrise, sunset, unix_timestamp(date(date)), moonillum  from weather.astro order by date desc limit " + days + ";"
     response_data = []
 
     sunrise = []
     sunset = []
     sunshine = []
+    moonshine = []
     cursor.execute(query)
     for row in cursor.fetchall():
         rowdate = datetime.date.fromtimestamp(row[3])
@@ -62,16 +63,21 @@ def sundays(request, days):
         diff = set - rise
         hours = round(diff.seconds / 60.00 / 60.00, 2);
         sunshine.append([row[0], hours])
+        moonshine.append([row[0], round(row[4],2)])
         # sunrise.append(row[1].strftime('%H:%M'))
         # sunset.append(row[2].strftime('%H:%M'))
     sun = {"key": "Hours of Daylight",
+               "bar" : "true",
                "values": sunshine}
     rises = {"key": "Sunrise",
                "values": sunrise}
     sets = {"key": "Sunset",
                "values": sunset}
+    moon = {"key": "Moon",
+               "values": moonshine}
 
     response_data.append(sun)
+    response_data.append(moon)
     # response_data.append(rises)
     # response_data.append(sets)
     return HttpResponse(json.dumps(response_data), content_type="application/json")
