@@ -252,9 +252,9 @@ class Image(models.Model):
     def __unicode__(self):
         return self.image.name
 
-    # class Meta:
-        # managed = False
-        # db_table = 'image'
+    class Meta:
+        managed = False
+        db_table = 'image'
 
 class ImageAdmin(admin.ModelAdmin):
     # search_fields = ["title"]
