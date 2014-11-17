@@ -242,7 +242,7 @@ class Image(models.Model):
 
 
     def thumbnail_link(self):
-        return """<a href="/media/%s"><img border="0" alt="" src="/media/%s" height="40" /></a>""" % ((self.image.name, self.thumbnail.name))
+        return """<a href="/static/media/%s"><img border="0" alt="" src="/static/media/%s" height="40" /></a>""" % ((self.image.name, self.thumbnail.name))
 
     thumbnail_link.allow_tags=True
 
