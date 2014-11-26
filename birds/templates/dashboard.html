@@ -15,6 +15,9 @@
 #birdspie svg {
   height: 400px;
 }
+#gbirdspie svg {
+  height: 400px;
+}
 #overview svg{
     height: 400px;
     width: 100%;
@@ -49,7 +52,9 @@
 <div id="birdspie">
     <svg></svg>
 </div>
-
+<div id="gbirdspie">
+    <svg></svg>
+</div>
 <div id="sun">
     <svg></svg>
 </div>
@@ -127,6 +132,28 @@ d3.json('/stats/eggsbysite', function(data) {
       return chart;
   });
 });
+
+d3.json('/stats/gramsbybird', function(data) {
+  nv.addGraph(function () {
+      var chart = nv.models.pieChart()
+              .x(function (d) {
+                  return d.label
+              })
+              .y(function (d) {
+                  return d.value
+              })
+              .showLabels(true);
+       chart.tooltipContent(function(key, x, y, e, graph) {
+	        return '<h3>' + key + '</h3><p>' + y['value'] + '</p>' });
+      d3.select("#gbirdspie svg")
+              .datum(data)
+              .transition().duration(1200)
+              .call(chart);
+
+      return chart;
+  });
+});
+
 d3.json('/stats/eggsbybird', function(data) {
   nv.addGraph(function () {
       var chart = nv.models.pieChart()

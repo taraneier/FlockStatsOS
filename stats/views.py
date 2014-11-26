@@ -53,6 +53,18 @@ def eggsbybird(request):
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
+def gramsbybird(request):
+    cursor = connection.cursor()
+    query = "select b.name as name, cast(sum(weight) as UNSIGNED) as count from bird b join egg e on e.bird_id = b.bird_id group by name order by count desc;"
+    response_data = []
+    cursor.execute(query)
+    for site in cursor.fetchall():
+        data = {"label": site[0], "value": site[1]}
+        response_data.append(data)
+
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+
 def overview(request):
     cursor = connection.cursor()
     query = "select date_format(date(finish), '%M %d, %Y') as Date, count(*) as Qty, cast(sum(weight) as SIGNED) as Grams, avg(weight) as Average, date(finish) as oDate from egg where weight > 0 group by Date  order by oDate desc limit 90;"
