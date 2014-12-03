@@ -96,3 +96,46 @@ def overview(request):
 
 
     return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+
+def crosstab(request):
+    cursor = connection.cursor()
+    query = "select \
+        date_format(date(finish), '%Y-%m-%d') as Date, \
+        count(1) as `Total`, \
+        cast(sum(if(`e`.`bird_id` = 8, `weight`, 0)) as SIGNED) as `Faith`,\
+        cast(sum(if(`e`.`bird_id` = 1, `weight`, 0)) as SIGNED) as `Della`,\
+        cast(sum(if(`e`.`bird_id` = 2, `weight`, 0)) as SIGNED) as `Ozzie`,\
+        cast(sum(if(`e`.`bird_id` = 11, `weight`, 0)) as SIGNED) as `Ivy`,\
+        cast(sum(if(`e`.`bird_id` = 7, `weight`, 0)) as SIGNED) as `Buffy`,\
+        cast(sum(if(`e`.`bird_id` = 4, `weight`, 0)) as SIGNED) as `Barbara`,\
+        cast(sum(if(`e`.`bird_id` = 9, `weight`, 0)) as SIGNED) as `Georgia`,\
+        cast(sum(if(`e`.`bird_id` = 12, `weight`, 0)) as SIGNED) as `Winona`,\
+        cast(sum(if(`e`.`bird_id` = 10, `weight`, 0)) as SIGNED) as `Mabel`,\
+        cast(sum(if(`e`.`bird_id` = 3, `weight`, 0)) as SIGNED) as `Rosie`,\
+        cast(sum(if(`e`.`bird_id` = 5, `weight`, 0)) as SIGNED) as `Sammy`,\
+        cast(sum(if(`e`.`bird_id` = 6, `weight`, 0)) as SIGNED) as `Cappie`\
+        from\
+            `egg` `e`\
+        group by `Date`\
+        order by `Date` desc\
+        ;"
+    response_data = {}
+
+    cursor.execute(query)
+    # headings = []
+    # for column in cursor.description:
+        # headings.append(column[0])
+    # response_data.append(headings)
+    records = []
+    columns = cursor.description
+    for row in cursor.fetchall():
+        response = {}
+        # for i, column in cursor.description:
+        for i in range(len(columns)):
+            response[""+columns[i][0].lower()] = row[i]
+        records.append(response)
+        response_data = {'records': records}
+    response_data['queryRecordCount'] = len(records)
+    response_data['totalRecordCount'] = len(records)
+    return HttpResponse(json.dumps(response_data), content_type="application/json")

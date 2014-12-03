@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>FlockStats - Production Crosstab</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <xlink rel="stylesheet" href="{{ STATIC_URL }}css/jquery.dynatable.css">
+<style>
+    th{
+        text-align: right;
+    }
+    .warn{
+        color: indianred;
+    }
+</style>
+    </head>
+<body>
+<table id="crosstab" border="1">
+    <thead>
+    <th>Date</th>
+    <th>Total</th>
+    <th>Faith</th>
+    <th>Buffy</th>
+    <th>Georgia</th>
+    <th>Barbara</th>
+    <th>Ivy</th>
+    <th>Della</th>
+    <th>Winona</th>
+    <th>Ozzie</th>
+    <th>Mabel</th>
+    <th>Sammy</th>
+    <th>Rosie</th>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+
+
+<script type="application/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="application/javascript" src="https://s3.amazonaws.com/dynatable-docs-assets/js/jquery.dynatable.js"></script>
+<script id="tab" type="application/json" src="/stats/crosstab"></script>
+<script type="text/javascript">
+var data ;
+
+
+var x = $.ajax({
+    url: "/stats/crosstab",
+    success: function () {
+        data = arguments[0];x
+        $('#crosstab').dynatable({
+            dataset: {
+                records: data.records
+            },
+            table: {
+                copyHeaderClass: true
+            },
+            writers: {
+                _cellWriter: function (column, record) {
+var html = column.attributeWriter(record),
+td = '<td';
+if (column.hidden || column.textAlign) {
+td += ' style="';
+// keep cells for hidden column headers hidden
+if (column.hidden) {
+td += 'display: none;';
+}
+// keep cells aligned as their column headers are aligned
+if (column.textAlign) {
+td += 'text-align: ' + column.textAlign + ';';
+}
+td += '"';
+}
+if (column.cssClass) {
+td += ' class="' + column.cssClass + '"';
+}
+if (html == 0){
+    html = '<span class="warn">' + html + '</span>';
+}
+return td + '>' + html + '</td>';
+}
+            }
+
+    })
+}});
+</script>
+
+
+</body>
+</html>

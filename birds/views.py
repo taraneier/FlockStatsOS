@@ -12,6 +12,9 @@ def dashboard(request):
     return render(request, 'dashboard.html')
 
 
+def crosstab(request):
+    return render(request, 'crosstab.html')
+
 class FlockViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint that allows flocks to be viewed.

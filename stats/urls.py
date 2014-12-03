@@ -7,4 +7,5 @@ urlpatterns = patterns('stats.views',
     ('gramsbybird$', 'gramsbybird'),
     ('detail$', 'detail'),
     ('overview$', 'overview'),
+    ('crosstab$', 'crosstab')
 )

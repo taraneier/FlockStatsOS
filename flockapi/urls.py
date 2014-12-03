@@ -21,6 +21,7 @@ urlpatterns = patterns('',
 
     url(r'^index.html', 'birds.views.index', name='index'),
     url(r'^dashboard.html', 'birds.views.dashboard', name='dashboard'),
+    url(r'^crosstab.html', 'birds.views.crosstab', name='crosstab'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
