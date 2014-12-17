@@ -66,6 +66,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'birds',
     'rest_framework',
     'rest_framework_swagger',
@@ -74,6 +75,7 @@ INSTALLED_APPS = (
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -82,6 +84,13 @@ MIDDLEWARE_CLASSES = (
 )
 
 ROOT_URLCONF = 'flockapi.urls'
+
+CORS_ORIGIN_ALLOW_ALL = False
+
+CORS_ORIGIN_WHITELIST = (
+        'dashboard-flockstats.rhcloud.com',
+        'hostname.example.com'
+    )
 
 WSGI_APPLICATION = 'flockapi.wsgi.application'
 
