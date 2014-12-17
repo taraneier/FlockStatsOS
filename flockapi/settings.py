@@ -85,12 +85,12 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'flockapi.urls'
 
-CORS_ORIGIN_ALLOW_ALL = False
-
-CORS_ORIGIN_WHITELIST = (
-        'dashboard-flockstats.rhcloud.com',
-        'hostname.example.com'
-    )
+CORS_ORIGIN_ALLOW_ALL = True
+#
+# CORS_ORIGIN_WHITELIST = (
+#         'dashboard-flockstats.rhcloud.com',
+#         'hostname.example.com'
+#     )
 
 WSGI_APPLICATION = 'flockapi.wsgi.application'
 
