@@ -62,16 +62,42 @@ class Flock(models.Model):
         query = "select date(finish) as date, count(1) as eggs, avg(weight) as avg from egg e join bird b on e.bird_id = b.bird_id where b.flock_id=%s group by date(finish) order by date desc limit 7"
         cursor.execute(query, [self.flock_id])
         return cursor.fetchall()
+
     def favorite_sites(self):
         cursor = connection.cursor()
         query = "select l.name as Site, count(1) as Eggs from egg e join site l  on e.site_id = l.site_id join bird b on e.bird_id = b.bird_id where b.flock_id=%s group by Site  order by Eggs desc limit 3"
         cursor.execute(query, [self.flock_id])
         return cursor.fetchall()
+
     def top_layers(self):
         cursor = connection.cursor()
         query = "select b.name as Bird, count(1) as Eggs from egg e join bird b on e.bird_id = b.bird_id where b.flock_id=%s group by Bird  order by Eggs desc limit 5"
         cursor.execute(query, [self.flock_id])
         return cursor.fetchall()
+
+    def percent_day(self):
+        cursor = connection.cursor()
+        query = "select count(distinct(e.bird_id)) from egg e join bird b on b.bird_id = e.bird_id where b.flock_id=%s and finish >= curdate() - INTERVAL DAYOFWEEK(curdate())+1 DAY;"
+        cursor.execute(query, [self.flock_id])
+        return cursor.fetchall()[0][0] / self.bird_count() * 100
+
+    def percent_week(self):
+        cursor = connection.cursor()
+        query = "select count(distinct(e.bird_id)) from egg e join bird b on b.bird_id = e.bird_id where b.flock_id=%s and finish >= curdate() - INTERVAL DAYOFWEEK(curdate())+7 DAY;"
+        cursor.execute(query, [self.flock_id])
+        return cursor.fetchall()[0][0] / self.bird_count() * 100
+
+    def percent_month(self):
+        cursor = connection.cursor()
+        query = "select count(distinct(e.bird_id)) from egg e join bird b on b.bird_id = e.bird_id where b.flock_id=%s and finish >= curdate() - INTERVAL DAYOFWEEK(curdate())+30 DAY;"
+        cursor.execute(query, [self.flock_id])
+        return cursor.fetchall()[0][0] / self.bird_count() * 100
+
+    def percent_quarter(self):
+        cursor = connection.cursor()
+        query = "select count(distinct(e.bird_id)) from egg e join bird b on b.bird_id = e.bird_id where b.flock_id=%s and finish >= curdate() - INTERVAL DAYOFWEEK(curdate())+90 DAY;"
+        cursor.execute(query, [self.flock_id])
+        return cursor.fetchall()[0][0] / self.bird_count() * 100
 
     def __unicode__(self):
         return self.name
