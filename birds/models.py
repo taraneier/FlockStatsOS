@@ -46,7 +46,7 @@ class Flock(models.Model):
     def egg_count(self):
         return self.eggs.count()
     def avg_weight(self):
-        return self.eggs.aggregate(Avg('weight')).get('weight__avg')
+        return round(self.eggs.aggregate(Avg('weight')).get('weight__avg'),2)
     def days_laying(self):
         import datetime
         import pytz
@@ -79,25 +79,25 @@ class Flock(models.Model):
         cursor = connection.cursor()
         query = "select count(distinct(e.bird_id)) from egg e join bird b on b.bird_id = e.bird_id where b.flock_id=%s and finish >= curdate() - INTERVAL DAYOFWEEK(curdate())+1 DAY;"
         cursor.execute(query, [self.flock_id])
-        return cursor.fetchall()[0][0] / self.bird_count() * 100
+        return round(cursor.fetchall()[0][0] / self.bird_count() * 100, 0)
 
     def percent_week(self):
         cursor = connection.cursor()
         query = "select count(distinct(e.bird_id)) from egg e join bird b on b.bird_id = e.bird_id where b.flock_id=%s and finish >= curdate() - INTERVAL DAYOFWEEK(curdate())+7 DAY;"
         cursor.execute(query, [self.flock_id])
-        return cursor.fetchall()[0][0] / self.bird_count() * 100
+        return round(cursor.fetchall()[0][0] / self.bird_count() * 100, 0)
 
     def percent_month(self):
         cursor = connection.cursor()
         query = "select count(distinct(e.bird_id)) from egg e join bird b on b.bird_id = e.bird_id where b.flock_id=%s and finish >= curdate() - INTERVAL DAYOFWEEK(curdate())+30 DAY;"
         cursor.execute(query, [self.flock_id])
-        return cursor.fetchall()[0][0] / self.bird_count() * 100
+        return round(cursor.fetchall()[0][0] / self.bird_count() * 100, 0)
 
     def percent_quarter(self):
         cursor = connection.cursor()
         query = "select count(distinct(e.bird_id)) from egg e join bird b on b.bird_id = e.bird_id where b.flock_id=%s and finish >= curdate() - INTERVAL DAYOFWEEK(curdate())+90 DAY;"
         cursor.execute(query, [self.flock_id])
-        return cursor.fetchall()[0][0] / self.bird_count() * 100
+        return round(cursor.fetchall()[0][0] / self.bird_count() * 100, 0)
 
     def __unicode__(self):
         return self.name
