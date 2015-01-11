@@ -243,7 +243,7 @@ class Image(models.Model):
     eggs = models.ManyToManyField(Egg, blank=True)
     thumbnail2 = models.ImageField(upload_to="images/", blank=True, null=True)
     thumbnail = models.ImageField(upload_to="images/", blank=True, null=True)
-    avatar = models.BooleanField(default=0)
+    avatar = models.BooleanField(default=0, blank=True)
 
 
     def save(self, *args, **kwargs):
