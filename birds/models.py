@@ -71,7 +71,8 @@ class Flock(models.Model):
 
     def top_layers(self):
         cursor = connection.cursor()
-        query = "select b.name as Bird, count(1) as Eggs from egg e join bird b on e.bird_id = b.bird_id where b.flock_id=%s group by Bird  order by Eggs desc limit 5"
+        # query = "select b.bird_id, b.name as Bird, count(1) as Eggs from egg e join bird b on e.bird_id = b.bird join _id where b.flock_id=%s group by Bird  order by Eggs desc limit 5"
+        query = "select count(distinct(e.bird_id)) from egg e join bird b on b.bird_id = e.bird_id where b.flock_id=%s and finish >= curdate() - INTERVAL DAYOFWEEK(curdate())+1 DAY;"
         cursor.execute(query, [self.flock_id])
         return cursor.fetchall()
 
@@ -165,6 +166,9 @@ class Bird(models.Model):
         else:
             return ""
 
+    def avatar(self):
+        return Image.objects.filter(birds = self.bird_id).exclude(avatar = 0)[0]
+
     def __unicode__(self):
         return self.name
     class Meta:
@@ -236,9 +240,11 @@ class Image(models.Model):
     height = models.IntegerField(blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
     birds = models.ManyToManyField(Bird, blank=True)
-    eggs  = models.ManyToManyField(Egg, blank=True)
+    eggs = models.ManyToManyField(Egg, blank=True)
     thumbnail2 = models.ImageField(upload_to="images/", blank=True, null=True)
     thumbnail = models.ImageField(upload_to="images/", blank=True, null=True)
+    avatar = models.BooleanField(default=0)
+
 
     def save(self, *args, **kwargs):
         """Save image dimensions."""
