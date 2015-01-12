@@ -11,19 +11,21 @@ def daily(request):
 
 def dailynum(request, days):
     cursor = connection.cursor()
-    query = "select date_format(date(date), '%M %d, %Y'), cast(meantempi as Signed), cast(maxtempi as signed), cast(mintempi as signed), precipi from weather.dailysummary  order by date desc limit " + days + ";"
+    query = "select date_format(date(date), '%M %d, %Y'), cast(meantempi as Signed), cast(maxtempi as signed), cast(mintempi as signed), precipi , cast(maxwspdi as signed) from weather.dailysummary  order by date desc limit " + days + ";"
     response_data = []
 
     avgval = []
     maxval = []
     minval = []
     precip = []
+    maxws = []
     cursor.execute(query)
     for row in cursor.fetchall():
         avgval.append([row[0], row[1]])
         maxval.append([row[0], row[2]])
         minval.append([row[0], row[3]])
         precip.append([row[0], float(row[4])])
+        maxws.append([row[0], row[5]])
     mintemp = {"key": "Low",
                "values": minval}
     maxtemp = {"key": "High",
@@ -33,11 +35,14 @@ def dailynum(request, days):
     precip = {"key": "Rain",
               "bar": "true",
               "values": precip}
+    maxwspd = {"key": "Wind",
+              "values": maxws}
 
     response_data.append(mintemp)
     response_data.append(maxtemp)
     response_data.append(avgtemp)
     response_data.append(precip)
+    response_data.append(maxwspd)
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 

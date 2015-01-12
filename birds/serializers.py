@@ -29,15 +29,17 @@ class BreedSerializer(serializers.HyperlinkedModelSerializer):
 class BirdSerializer(serializers.HyperlinkedModelSerializer):
     age = serializers.Field()
     breed = serializers.HyperlinkedRelatedField
+    breed_name = serializers.Field()
     egg_count = serializers.Field()
     avg_weight = serializers.Field()
     days_laying = serializers.Field()
     eggs_per_day = serializers.Field()
     favorite_site = serializers.Field()
+    last_egg = serializers.Field()
     avatar = serializers.Field()
 
     class Meta:
         model = Bird
         fields = (
         'bird_id', 'name', 'breed', 'hatched', 'age', 'egg_count', 'avg_weight', 'days_laying', 'eggs_per_day',
-        'favorite_site', 'avatar')
+        'favorite_site', 'avatar', 'breed_name', 'last_egg')

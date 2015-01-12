@@ -119,6 +119,9 @@ class Bird(models.Model):
     def is_active(self):
         return bool(self.active)
 
+    def breed_name(self):
+        return self.breed.name;
+
     @property
     def eggs(self):
         return  Egg.objects.filter(bird = self.bird_id).order_by('finish')
@@ -139,6 +142,13 @@ class Bird(models.Model):
     @property
     def avg_weight(self):
         return self.eggs.aggregate(Avg('weight')).get('weight__avg')
+
+    @property
+    def last_egg(self):
+        last_index = len(self.eggs) - 1
+        print(last_index)
+        if (last_index>-1):
+            return self.eggs[last_index].finish
 
     @property
     def days_laying(self):

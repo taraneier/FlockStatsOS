@@ -81,13 +81,13 @@ def overview(request):
 
     qty = {"key": "Quantity",
            "bar": "true",
-           "color": '#2ca02c',
+           "color": '#5B90BF',
            "values": qtval}
     weight = {"key": "Weight",
               "color": '#ff7f0e',
               "values": wtval}
     avgwgt = {"key": "Average",
-              "color": "#0000ff",
+              "color": "#A2BF8A",
               "values": avgwt}
 
     response_data.append(avgwgt)
