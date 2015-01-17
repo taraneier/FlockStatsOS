@@ -28,6 +28,7 @@ urlpatterns = patterns('',
     url(r'^docs/', include('rest_framework_swagger.urls')),
     url(r'^weather/', include('weather.urls')),
     url(r'^stats/', include('stats.urls')),
+    url(r'^coop/', include('coop.urls')),
 )
 
 if settings.DEBUG:
