@@ -14,4 +14,10 @@ def upload(request, hum, t0, t1, t2, t3, t4, t5, t6, lum1, lum2, door):
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
-# def
+def door(request):
+    response_data = {"value": 0, "formatted" : "Open"}
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+def lum1(request):
+    response_data = {"value": 978}
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
