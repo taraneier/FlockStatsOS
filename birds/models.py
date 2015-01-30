@@ -78,25 +78,25 @@ class Flock(models.Model):
 
     def percent_day(self):
         cursor = connection.cursor()
-        query = "select count(distinct(e.bird_id)) from egg e join bird b on b.bird_id = e.bird_id where b.flock_id=%s and finish >= curdate() - INTERVAL DAYOFWEEK(curdate())+1 DAY;"
+        query = "select count(distinct(e.bird_id)) from egg e join bird b on b.bird_id = e.bird_id where b.flock_id=%s and finish >= DATE_ADD(CURDATE(), INTERVAL -1 DAY);"
         cursor.execute(query, [self.flock_id])
         return round(cursor.fetchall()[0][0] / self.bird_count() * 100, 0)
 
     def percent_week(self):
         cursor = connection.cursor()
-        query = "select count(distinct(e.bird_id)) from egg e join bird b on b.bird_id = e.bird_id where b.flock_id=%s and finish >= curdate() - INTERVAL DAYOFWEEK(curdate())+7 DAY;"
+        query = "select count(distinct(e.bird_id)) from egg e join bird b on b.bird_id = e.bird_id where b.flock_id=%s and finish >= DATE_ADD(CURDATE(), INTERVAL -7 DAY);"
         cursor.execute(query, [self.flock_id])
         return round(cursor.fetchall()[0][0] / self.bird_count() * 100, 0)
 
     def percent_month(self):
         cursor = connection.cursor()
-        query = "select count(distinct(e.bird_id)) from egg e join bird b on b.bird_id = e.bird_id where b.flock_id=%s and finish >= curdate() - INTERVAL DAYOFWEEK(curdate())+30 DAY;"
+        query = "select count(distinct(e.bird_id)) from egg e join bird b on b.bird_id = e.bird_id where b.flock_id=%s and finish >= DATE_ADD(CURDATE(), INTERVAL -30 DAY);"
         cursor.execute(query, [self.flock_id])
         return round(cursor.fetchall()[0][0] / self.bird_count() * 100, 0)
 
     def percent_quarter(self):
         cursor = connection.cursor()
-        query = "select count(distinct(e.bird_id)) from egg e join bird b on b.bird_id = e.bird_id where b.flock_id=%s and finish >= curdate() - INTERVAL DAYOFWEEK(curdate())+90 DAY;"
+        query = "select count(distinct(e.bird_id)) from egg e join bird b on b.bird_id = e.bird_id where b.flock_id=%s and finish >= DATE_ADD(CURDATE(), INTERVAL -90 DAY);"
         cursor.execute(query, [self.flock_id])
         return round(cursor.fetchall()[0][0] / self.bird_count() * 100, 0)
 

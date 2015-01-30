@@ -10,6 +10,8 @@ urlpatterns = patterns('coop.views',
     ),
     (
         'lum1', 'lum1'
+    ),
+    (   'alldata','alldata'
     )
                        # ('eggsbysite$', 'eggsbysite'),
                        # ('gramsbybird$', 'gramsbybird'),
