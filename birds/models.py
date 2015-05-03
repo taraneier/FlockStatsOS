@@ -191,9 +191,10 @@ class Egg(models.Model):
     egg_id = models.AutoField(primary_key=True)
     bird = models.ForeignKey(Bird)
     site = models.ForeignKey(Site)
+    weight = models.IntegerField(blank=True, null=True)
     start = models.DateTimeField(blank=False)
     finish = models.DateTimeField(blank=False)
-    weight = models.IntegerField(blank=True, null=True)
+
 
     def __unicode__(self):
         import datetime
