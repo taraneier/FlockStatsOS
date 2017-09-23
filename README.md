@@ -2,6 +2,7 @@ Django v1.65 on OpenShift v3.2014
 =
 This git repository helps you get up and running quickly with django v1.65 and Openshift March 2014 release.
 ###Features
+
 * Ready to use for local development
 * Easy to push to Openshift
 * Configured for PostgreSQL 9.2
